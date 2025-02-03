@@ -1,0 +1,478 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Quiz</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+    <link rel="stylesheet" href="assets/css/flaticon.css">
+    <link rel="stylesheet" href="assets/css/progressbar_barfiller.css">
+    <link rel="stylesheet" href="assets/css/gijgo.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/animated-headline.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<style>
+    .popup-container {
+        left: 0;
+        top: 0;
+        padding: 15px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.2s ease;
+      }
+      .popup-container.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .popup-container .quiz-box {
+        z-index: 5;
+        opacity: 0;
+        pointer-events: none;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.13);
+        transform: translateY(-50px);
+        transition: all 0.4s ease-out;
+      }
+      .popup-container.active .quiz-box {
+        opacity: 1;
+        z-index: 10;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+      /* Quiz Configuration Stylings */
+      .config-container {
+        z-index: 10;
+        width: 415px;
+        padding: 25px;
+        text-align: center;
+      }
+      .config-container .config-title {
+        font-size: 1.31rem;
+      }
+      .config-container .config-option {
+        margin-top: 25px;
+      }
+      .config-option .option-title {
+        font-weight: 500;
+        font-size: 1.125rem;
+        margin-bottom: 20px;
+      }
+      .config-option .category-options {
+        display: grid;
+        gap: 15px;
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .config-option .question-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 0 30px;
+        justify-content: center;
+      }
+      .config-option button {
+        padding: 12px;
+        font-size: 0.938rem;
+        color: #000;
+        cursor: pointer;
+        font-weight: 500;
+        border-radius: 6px;
+        background: #fff;
+        border: 1px solid #9B8FFF;
+        transition: 0.3s ease;
+      }
+      .config-option button.active {
+        color: #5145BA;
+        border-color: #5145BA;
+        background: #dfdafd;
+      }
+      .config-option button:hover,
+      .quiz-content .answer-option:hover {
+        background: #dad5fd;
+      }
+      .config-option .question-options button {
+        flex: 1 1 10%;
+      }
+      .config-container .start-quiz-btn,
+      .quiz-footer .next-question-btn,
+      .result-container .try-again-btn {
+        color: #fff;
+        border: none;
+        font-weight: 500;
+        background: #5145BA;
+        padding: 13px 25px;
+        cursor: pointer;
+        font-size: 1rem;
+        border-radius: 6px;
+        transition: background 0.3s ease;
+      }
+      .config-container .start-quiz-btn {
+        margin-top: 30px;
+      }
+      .config-container .start-quiz-btn:hover,
+      .quiz-footer .next-question-btn:hover,
+      .result-container .try-again-btn:hover {
+        background: #403795;
+      }
+      /* Quiz Container Stylings */
+      .quiz-container {
+        width: 480px;
+      }
+      .quiz-container .quiz-header {
+        display: flex;
+        padding: 14px 25px;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.09);
+      }
+      .quiz-header .quiz-title {
+        font-size: 1.43rem;
+        font-weight: 700;
+      }
+      .quiz-header .quiz-timer {
+        display: flex;
+        width: 70px;
+        color: #fff;
+        gap: 5px;
+        align-items: center;
+        background: #32313C;
+        border-radius: 6px;
+        padding: 7px 9px;
+        font-weight: 600;
+        transition: 0.2s ease;
+      }
+      .quiz-header .quiz-timer span {
+        font-size: 1.4rem;
+      }
+      .quiz-container .quiz-content {
+        padding: 20px 25px 25px;
+      }
+      .quiz-content .question-text {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      .quiz-content .answer-options {
+        list-style: none;
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+        flex-direction: column;
+      }
+      .quiz-content .answer-option {
+        display: flex;
+        cursor: pointer;
+        align-items: center;
+        font-weight: 500;
+        border-radius: 6px;
+        padding: 13px 16px;
+        border: 1px solid #B5ACFF;
+        background: #F3F1FF;
+        justify-content: space-between;
+        transition: 0.3s ease;
+      }
+      .quiz-content .answer-option span {
+        display: block;
+        flex-shrink: 0;
+        margin: -4px -3px -4px 12px;
+      }
+      .quiz-content .answer-option.correct {
+        border-color: #B7E1C1;
+        background: #D4EDDA;
+        color: #155724;
+      }
+      .quiz-content .answer-option.correct span {
+        color: #16AE56;
+      }
+      .quiz-content .answer-option.incorrect {
+        border-color: #F4BEC3;
+        background: #F8D7DA;
+        color: #721C24;
+      }
+      .quiz-content .answer-option.incorrect span {
+        color: #F23723;
+      }
+      .quiz-container .quiz-footer {
+        padding: 15px 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid #C6C6C6;
+      }
+      .quiz-footer .question-status {
+        font-weight: 500;
+      }
+      .quiz-footer .question-status b {
+        font-weight: 600;
+      }
+      .quiz-footer .next-question-btn {
+        display: inline-flex;
+        gap: 5px;
+        align-items: center;
+        padding: 9px 17px;
+      }
+      /* Quiz Result Stylings */
+      .result-container {
+        text-align: center;
+        padding: 40px;
+        width: 410px;
+      }
+      .result-container .result-img {
+        width: 110px;
+      }
+      .result-container .result-title {
+        margin-top: 30px;
+      }
+      .result-container .result-message {
+        font-size: 1.125rem;
+        font-weight: 500;
+        margin-top: 15px;
+      }
+      .result-container .result-message b {
+        font-weight: 700;
+        color: #5145BA;
+      }
+      .result-container .try-again-btn {
+        padding: 12px 20px;
+        margin-top: 30px;
+      }
+      /* Media query code for mobile screens */
+      @media (max-width: 624px) {
+        .config-container,
+        .quiz-container .quiz-content {
+          padding: 20px;
+        }
+        .quiz-content .answer-option {
+          padding: 12px 10px 12px 14px;
+        }
+        .config-container .question-options {
+          padding: 0 15px;
+        }
+        .quiz-container .quiz-header,
+        .quiz-container .quiz-footer {
+          padding: 13px 20px;
+        }
+        .quiz-header .quiz-title,
+        .quiz-content .question-text {
+          font-size: 1.3rem;
+        }
+        .result-container {
+          padding: 40px 20px;
+        }
+        .result-container .result-title {
+          font-size: 1.4rem;
+        }
+      }
+</style>
+<body>
+    <!-- ? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="assets/img/logo/loder.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+    <!-- Header Start -->
+    <div class="header-area header-transparent">
+        <div class="main-header ">
+            <div class="header-bottom  header-sticky">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <!-- Logo -->
+                        <div class="col-xl-2 col-lg-2">
+                            <div class="logo">
+                                <a style="font-size:28px;" href="index.html">DYSАғылшын</a>
+                            </div>
+                        </div>
+                        <div class="col-xl-10 col-lg-10">
+                            <div class="menu-wrapper d-flex align-items-center justify-content-end">
+                                <!-- Main-menu -->
+                                <div class="main-menu d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">                                                                                          
+                                            <li class="active" ><a href="index.html">Бастапқы бет</a></li>
+                                            <li><a href="courses.html">Курс</a></li>
+                                            <li><a href="about.html">Материал</a></li>
+                                            <li><a href="#">Блог</a>
+                                                <ul class="submenu">
+                                                    <li><a href="blog.html">Блогтар</a></li>
+                                                    
+                                                </ul>
+                                            </li>
+                                            <li><a href="contact.html">Контакт</a></li>
+                                            <!-- Button -->
+                                            <li class="button-header margin-left "><a href="#" class="btn">Қосылу</a></li>
+                                            <li class="button-header"><a href="login.html" class="btn btn3">Кіру</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div> 
+                        <!-- Mobile Menu -->
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+    <main>
+        <!--? slider Area Start-->
+        <section class="slider-area slider-area2">
+            <div class="slider-active">
+                <!-- Single Slider -->
+                <div class="single-slider slider-height2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-11 col-md-12">
+                                <div class="hero__caption hero__caption2">
+                                    <h1 data-animation="bounceIn" data-delay="0.2s">Тегін сабақ</h1>
+                                    <!-- breadcrumb Start-->
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="index.html">Бастапқы бет</a></li>
+                                            <li class="breadcrumb-item"><a href="#">Негізгі бөлім</a></li> 
+                                        </ol>
+                                    </nav>
+                                    <!-- breadcrumb End -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>          
+                </div>
+            </div>
+        </section>
+     <section class="section-padding40">
+      <h2>Available Quizzes</h2>
+      <ul>
+          <% quizzes.forEach(quiz => { %>
+              <li>
+                  <a href="/quiz/<%= quiz._id %>"><%= quiz.title %></a>
+              </li>
+          <% }) %>
+      </ul>
+      
+     </section>
+    </main>
+    <footer>
+        <div class="footer-wrappper footer-bg">
+           <!-- Footer Start-->
+           <div class="footer-area footer-padding">
+               <div class="container">
+                   <div class="row justify-content-between">
+                       <div class="col-xl-4 col-lg-5 col-md-4 col-sm-6">
+                           <div class="single-footer-caption mb-50">
+                               <div class="single-footer-caption mb-30">
+                                   
+                                   <!-- logo -->
+                                   <div class="footer-logo mb-25">
+                                    <a style="font-size:28px;" href="index.html">DYSАғылшын</a>
+                                   </div>
+                                   <div class="footer-tittle">
+                                       <div class="footer-pera">
+                                           <p>Бүкіл құқық сақталынған, ұрланған жағыдайда заңды түрде сұраныс болады.</p>
+                                       </div>
+                                   </div>
+                                   <!-- social -->
+                                   <div class="footer-social">
+                                       <a href="#"><i class="fab fa-twitter"></i></a>
+                                       <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
+                                       <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+           <!-- footer-bottom area -->
+           <div class="footer-bottom-area">
+               <div class="container">
+                   <div class="footer-border">
+                       <div class="row d-flex align-items-center">
+                           <div class="col-xl-12 ">
+                               <div class="footer-copy-right text-center">
+                                   <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                     Copyright &copy;<script>document.write(new Date().getFullYear());</script> | Бұл жоба  <a href="https://www.instagram.com/_r_nurbek_a/?hl=ru" target="_blank">Nurbek</a> және <a href="https://www.instagram.com/just_meatt/?hl=ru" target="_blank">Adilet</a>  көмегімен жасалған
+                                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <!-- Footer End-->
+         </div>
+     </footer> 
+      <!-- Scroll Up -->
+      <div id="back-top" >
+        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+    </div>
+
+    <!-- JS here -->
+    <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="./assets/js/jquery.slicknav.min.js"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="./assets/js/owl.carousel.min.js"></script>
+    <script src="./assets/js/slick.min.js"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="./assets/js/wow.min.js"></script>
+    <script src="./assets/js/animated.headline.js"></script>
+    <script src="./assets/js/jquery.magnific-popup.js"></script>
+
+    <!-- Date Picker -->
+    <script src="./assets/js/gijgo.min.js"></script>
+    <!-- Nice-select, sticky -->
+    <script src="./assets/js/jquery.nice-select.min.js"></script>
+    <script src="./assets/js/jquery.sticky.js"></script>
+    <!-- Progress -->
+    <script src="./assets/js/jquery.barfiller.js"></script>
+    
+    <!-- counter , waypoint,Hover Direction -->
+    <script src="./assets/js/jquery.counterup.min.js"></script>
+    <script src="./assets/js/waypoints.min.js"></script>
+    <script src="./assets/js/jquery.countdown.min.js"></script>
+    <script src="./assets/js/hover-direction-snake.min.js"></script>
+
+    <!-- contact js -->
+    <script src="./assets/js/contact.js"></script>
+    <script src="./assets/js/jquery.form.js"></script>
+    <script src="./assets/js/jquery.validate.min.js"></script>
+    <script src="./assets/js/mail-script.js"></script>
+    <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+    
+    <!-- Jquery Plugins, main Jquery -->	
+    <script src="./assets/js/plugins.js"></script>
+    <script src="./assets/js/main.js"></script>
+    
+</body>
+</html>

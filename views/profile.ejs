@@ -1,0 +1,325 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Профиль</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/hamburgers.min.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<style>
+    body {
+        background: #fff;
+    }
+    
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #BA68C8
+    }
+    
+    .profile-button {
+        background: rgb(99, 39, 120);
+        box-shadow: none;
+        border: none
+    }
+    
+    .profile-button:hover {
+        background: #682773
+    }
+    
+    .profile-button:focus {
+        background: #682773;
+        box-shadow: none
+    }
+    
+    .profile-button:active {
+        background: #682773;
+        box-shadow: none
+    }
+    
+    .back:hover {
+        color: #682773;
+        cursor: pointer
+    }
+    
+    .labels {
+        font-size: 11px
+    }
+    
+    .add-experience:hover {
+        background: #BA68C8;
+        color: #fff;
+        cursor: pointer;
+        border: solid 1px #BA68C8
+    }
+</style>
+<body>
+    <!--? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="assets/img/logo/loder.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+    <!-- Header Start -->
+    <div class="header-area header-transparent">
+        <div class="main-header ">
+            <div class="header-bottom  header-sticky">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <!-- Logo -->
+                        <div class="col-xl-2 col-lg-2">
+                            <div class="logo">
+                                <a style="font-size:28px;" href="index.html">DYSАғылшын</a>
+                            </div>
+                        </div>
+                        <div class="col-xl-10 col-lg-10">
+                            <div class="menu-wrapper d-flex align-items-center justify-content-end">
+                                <!-- Main-menu -->
+                                <div class="main-menu d-none d-lg-block">
+                                    <%- include('blocks/nav') -%>
+                                </div>
+                            </div>
+                        </div> 
+                        <!-- Mobile Menu -->
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+    <main>
+        <!--? slider Area Start-->
+        <section class="slider-area slider-area2">
+            <div class="slider-active">
+                <!-- Single Slider -->
+                <div class="single-slider slider-height2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-11 col-md-12">
+                                <div class="hero__caption hero__caption2">
+                                    <h1 data-animation="bounceIn" data-delay="0.2s">Профиль</h1>
+                                    <!-- breadcrumb Start-->
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="/">Бастапқы бет</a></li>
+                                            <li class="breadcrumb-item"><a href="/profile">Профиль</a></li> 
+                                        </ol>
+                                    </nav>
+                                    <!-- breadcrumb End -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>          
+                </div>
+            </div>
+        </section>
+        <!--? Blog Area Start-->
+        <div class="container">
+            <div class="container rounded bg-white mt-5 mb-5">
+                <div class="row">
+                    <div class="col-md-3 border-right">
+                        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                            <!-- Здесь отображаем аватар пользователя -->
+                            <img class="rounded-circle mt-5" width="150px" src="<%= user.avatar ? user.avatar : 'https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg' %>">
+                             <!-- Поле для загрузки аватарки -->
+                             <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <label class="labels">Фото ауыстыру</label>
+                                    <input type="file" name="avatar" class="form-control">
+                                </div>
+                            </div>
+                            <span class="font-weight-bold"><%= user.name %></span>
+                            <span class="text-black-50"><%= user.email %></span>
+                            <span> </span>
+                        </div>
+                    </div>
+                    <div class="col-md-5 border-right">
+                        <div class="p-3 py-5">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="text-right">Profile Settings</h4>
+                            </div>
+                            <div class="row mt-2">
+                                <form action="/profile/updateProfile" method="POST" enctype="multipart/form-data">
+                                    <div class="col-md-6">
+                                        <label class="labels">ТАӘ</label>
+                                        <input style="width:400px;" type="text" name="name" class="form-control"  placeholder="First name" value="<%= user.name %>">
+                                    </div>
+                                    
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <label class="labels">Email Address</label>
+                                        <input type="email" name="email" class="form-control" placeholder="Enter new email address" value="<%= user.email %>" required>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <label class="labels">Education</label>
+                                        <input type="text" name="education" class="form-control" placeholder="Education" value="<%= user.education %>">
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <label class="labels">Country</label>
+                                        <input type="text" name="country" class="form-control" placeholder="Country" value="<%= user.country %>">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="labels">State/Region</label>
+                                        <input type="text" name="state" class="form-control" placeholder="State/Region" value="<%= user.state %>">
+                                    </div>
+                                </div>
+                                <h2 style="margin-top:50px;">Your Purchased Courses</h2>
+
+                                <% if (purchases.length === 0) { %>
+                                    <p>You have not purchased any courses yet.</p>
+                                <% } else { %>
+                                    <ul>
+                                        <% purchases.forEach(purchase => { %>
+                                            <li>
+                                                <strong>Course Name:</strong> <%= purchase.courseName %><br>
+                                                <strong>Price:</strong> $<%= purchase.coursePrice %><br>
+                                             </li>
+                                        <% }) %>
+                                    </ul>
+                                <% } %>
+                               
+        
+                                <div class="mt-5 text-center">
+                                    <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
+                                </div>
+                            </div>
+                        </form>
+                        <form action="/deleteAccount" method="POST">
+                            <button type="submit" class="btn-secondary" style="margin: 50px; border-radius: 20px;">Delete Account</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+                
+                </div>
+            </div>
+        </div>
+        <!-- Blog Area End -->
+    </main>
+    <footer>
+        <div class="footer-wrappper footer-bg">
+           <!-- Footer Start-->
+           <div class="footer-area footer-padding">
+               <div class="container">
+                   <div class="row justify-content-between">
+                       <div class="col-xl-4 col-lg-5 col-md-4 col-sm-6">
+                           <div class="single-footer-caption mb-50">
+                               <div class="single-footer-caption mb-30">
+                                   
+                                   <!-- logo -->
+                                   <div class="footer-logo mb-25">
+                                    <a style="font-size:28px;" href="index.html">DYSАғылшын</a>
+                                   </div>
+                                   <div class="footer-tittle">
+                                       <div class="footer-pera">
+                                           <p>Бүкіл құқық сақталынған, ұрланған жағыдайда заңды түрде сұраныс болады.</p>
+                                       </div>
+                                   </div>
+                                   <!-- social -->
+                                   <div class="footer-social">
+                                       <a href="#"><i class="fab fa-twitter"></i></a>
+                                       <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
+                                       <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+           <!-- footer-bottom area -->
+           <div class="footer-bottom-area">
+               <div class="container">
+                   <div class="footer-border">
+                       <div class="row d-flex align-items-center">
+                           <div class="col-xl-12 ">
+                               <div class="footer-copy-right text-center">
+                                   <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                     Copyright &copy;<script>document.write(new Date().getFullYear());</script> | Бұл жоба  <a href="https://www.instagram.com/_r_nurbek_a/?hl=ru" target="_blank">Nurbek</a> және <a href="https://www.instagram.com/mukhtar_nurik/?hl=ru" target="_blank">Nursultan</a>  көмегімен жасалған
+                                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <!-- Footer End-->
+         </div>
+     </footer>
+      
+      <!-- Scroll Up -->
+      <div id="back-top" >
+        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+    </div>
+    <!-- JS here -->
+
+    <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="./assets/js/jquery.slicknav.min.js"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="./assets/js/owl.carousel.min.js"></script>
+    <script src="./assets/js/slick.min.js"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="./assets/js/wow.min.js"></script>
+    <script src="./assets/js/animated.headline.js"></script>
+    <script src="./assets/js/jquery.magnific-popup.js"></script>
+
+    <!-- Date Picker -->
+    <script src="./assets/js/gijgo.min.js"></script>
+    <!-- Nice-select, sticky -->
+    <script src="./assets/js/jquery.nice-select.min.js"></script>
+    <script src="./assets/js/jquery.sticky.js"></script>
+    
+    <!-- counter , waypoint,Hover Direction -->
+    <script src="./assets/js/jquery.counterup.min.js"></script>
+    <script src="./assets/js/waypoints.min.js"></script>
+    <script src="./assets/js/jquery.countdown.min.js"></script>
+    <script src="./assets/js/hover-direction-snake.min.js"></script>
+
+    <!-- contact js -->
+    <script src="./assets/js/contact.js"></script>
+    <script src="./assets/js/jquery.form.js"></script>
+    <script src="./assets/js/jquery.validate.min.js"></script>
+    <script src="./assets/js/mail-script.js"></script>
+    <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
+    
+    <!-- Jquery Plugins, main Jquery -->	
+    <script src="./assets/js/plugins.js"></script>
+    <script src="./assets/js/main.js"></script>
+    
+</body>
+</html>
