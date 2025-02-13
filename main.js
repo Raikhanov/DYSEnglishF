@@ -240,15 +240,16 @@ app.post("/login", async (req, res) => {
         if (!check) {
             return res.status(404).render("not_found");
         }
-        
+
         // Сравнение пароля
         const isPasswordMatch = await bcrypt.compare(req.body.password, check.password);
         if (isPasswordMatch) {
-            // Сохраняем данные пользователя в сессии
+            // Сохраняем данные пользователя в сессии, включая роль
             req.session.user = {  
                 id: check._id,
-                email: check.email };
-            
+                email: check.email,
+                role: check.role // Добавляем роль
+            };
 
             return res.redirect("/profile");
         } else {
@@ -260,6 +261,13 @@ app.post("/login", async (req, res) => {
     }
 });
 
+app.get("/admin", (req, res) => {
+    if (!req.session.user || req.session.user.role !== "admin") {
+        return res.render("not_found")
+    }
+
+    res.render("admin");
+});
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
