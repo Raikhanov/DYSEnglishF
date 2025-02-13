@@ -207,7 +207,11 @@
                                         <% }) %>
                                     </ul>
                                 <% } %>
-                               
+
+                                <a style="color:black;" href="stats/user-purchases">Курс сатып алынған санаулық</a>
+                                <br> <a style="color:black;" href="stats/course-distribution">Сатып алынған курспен бөлу</a>
+                                     
+                                
         
                                 <div class="mt-5 text-center">
                                     <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
@@ -217,6 +221,11 @@
                         <form action="/deleteAccount" method="POST">
                             <button type="submit" class="btn-secondary" style="margin: 50px; border-radius: 20px;">Delete Account</button>
                         </form>
+<% if (user.role === "admin") { %>
+    <a style="color: red;"  href="/admin">
+      АДМИН-ПАНЕЛЬ!  
+    </a>
+<% } %>
                     </div>
                 </div>
             </div>
